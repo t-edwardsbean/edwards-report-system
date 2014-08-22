@@ -1,0 +1,46 @@
+<workflow-app name="hive" xmlns="uri:oozie:workflow:0.4">
+    <start to="hive"/>
+    <action name="hive">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>hive.metastore.uris</name>
+                    <value>${metastore}</value>
+                </property>
+            </configuration>
+            <script>${hql}</script>
+            <param>reportId=${reportId}</param>
+            <param>date=${date}</param>
+        </hive>
+        <ok to="sqoop"/>
+        <error to="kill"/>
+    </action>
+    <action name="sqoop">
+        <sqoop xmlns="uri:oozie:sqoop-action:02">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>hive.metastore.uris</name>
+                    <value>${metastore}</value>
+                </property>
+            </configuration>
+            <command>import --connect jdbc:mysql://${database} --table report --export-dir /user/oozie/91report/reportId/date -m 1</command>
+        </sqoop>
+        <ok to="clean"/>
+        <error to="kill"/>
+    </action>
+    <action name="clean">
+        <fs>
+            <delete path='${nameNode}/user/oozie/91report/${reportId}/${date}'/>
+        </fs>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+    <kill name="kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+    <end name="end"/>
+</workflow-app>

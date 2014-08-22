@@ -1,0 +1,16 @@
+<coordinator-app name="91report"
+                 frequency="${coord:days(1)}"
+                 start="${start}" end="${end}" timezone="Asia/Shanghai"
+                 xmlns="uri:oozie:coordinator:0.2">
+    <action>
+        <workflow>
+            <app-path>/user/oozie/91report/workflow.xml</app-path>
+            <configuration>
+                <property>
+                    <name>date</name>
+                    <value>${coord:formatTime(coord:actualTime(), 'yyyy-MM-dd')}</value>
+                </property>
+            </configuration>
+        </workflow>
+    </action>
+</coordinator-app>
