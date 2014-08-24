@@ -1,4 +1,4 @@
-package com.baidu.oozie;
+package com.baidu.hadoop;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;

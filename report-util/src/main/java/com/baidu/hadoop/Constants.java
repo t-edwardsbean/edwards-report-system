@@ -1,4 +1,4 @@
-package com.baidu.oozie;
+package com.baidu.hadoop;
 
 /**
  * Created by edwardsbean on 14-8-20.
