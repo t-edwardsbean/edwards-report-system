@@ -8,4 +8,5 @@ import com.baidu.model.User;
 public interface UserService {
     User getUser(int userId);
     void InsertUser(User user);
+    boolean userLogin(String userName,String password);
 }

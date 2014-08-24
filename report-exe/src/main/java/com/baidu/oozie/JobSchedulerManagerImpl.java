@@ -1,5 +1,7 @@
 package com.baidu.oozie;
 
+import com.baidu.hadoop.Constants;
+import com.baidu.hadoop.HdfsUtil;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import org.apache.commons.lang.exception.ExceptionUtils;

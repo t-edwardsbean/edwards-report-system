@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService {
     public void InsertUser(User user) {
         userMapper.insertUser(user);
     }
+
+    @Override
+    public boolean userLogin((String userName,String password) {
+        return false;
+    }
 }
